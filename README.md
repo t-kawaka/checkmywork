@@ -17,3 +17,5 @@
 |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |
 |---|---|---|---|
 |label1 : string  |label2 : string  |label3 : string  |task : references  |
+
+![ER図](/docs/ER図.png)
