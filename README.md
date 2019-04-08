@@ -12,6 +12,11 @@
 |---|---|---|---|---|---|
 |name : string  |detail : text  |deadline : datetime  |situation : string  |priority : string  |user : references  |
 
+#### missionモデル
+|カラム名 : データ型  |
+|---|---|
+|task_id : integer  |label_id : integer  |
+
 #### labelモデル
 
 |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |
