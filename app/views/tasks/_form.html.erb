@@ -18,10 +18,6 @@
     <%= t('view.detail') %>
     <%= form.text_area :detail %>
   </div>
-  <div class="task_deadline">
-    <%= t('view.deadline') %>
-    <%= form.date_select :deadline, {:use_two_digit_numbers  => true} %>
-  </div>
   <%= form.submit %>
 <% end %>
 
