@@ -1,0 +1,28 @@
+<%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= @task.errors.count %>件のエラーがあります。</h3>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="task_name">
+    <%= t('view.name') %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="task_detail">
+    <%= t('view.detail') %>
+    <%= form.text_area :detail %>
+  </div>
+  <div class="task_deadline">
+    <%= t('view.deadline') %>
+    <%= form.date_select :deadline, {:use_two_digit_numbers  => true} %>
+  </div>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to "ブログ一覧画面に戻る", tasks_path %>
