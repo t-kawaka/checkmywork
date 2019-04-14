@@ -14,13 +14,17 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
     # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
-    expect(page).to have_detail 'testtesttest'
-    expect(page).to have_detail 'samplesample'
+    expect(page).to have_content('testtesttest')
+    expect(page).to have_content('samplesample')
 
   end
 
   scenario "タスク作成のテスト" do
-
+    visit new_task_path
+    fill_in 'task_name', with:'test_task_01'
+    fill_in 'task_detail', with: 'testtesttest'
+    click_button '登録する'
+    expect(page).to have_content('testtesttest')
   end
 
   scenario "タスク詳細のテスト" do
