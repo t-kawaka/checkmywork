@@ -1,0 +1,15 @@
+<%= form_with(model: @task, local: true) do |form| %>
+  <%= render 'layouts/error_explanations' %>
+
+  <div class="task_name">
+    <%= t('view.name') %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="task_detail">
+    <%= t('view.detail') %>
+    <%= form.text_area :detail %>
+  </div>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to "ブログ一覧画面に戻る", tasks_path %>
