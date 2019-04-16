@@ -1,25 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
-  scenario "タスク一覧のテスト" do
-    Task.create!(name: 'test_task_01', detail: 'testtesttest')
-    Task.create!(name: 'test_task_02', detail: 'samplesample')
+  background do
+    FactoryBot.create(:task, name:"test_task_01")
+    FactoryBot.create(:task, name:"test_task_02")
+    FactoryBot.create(:second_task, name:"test_task_03")
+  end
+
+  scenario "タスクが作成日時の降順に並んでいるかのテスト" do
     visit tasks_path
-    expect(page).to have_content('testtesttest')
-    expect(page).to have_content('samplesample')
-  end
-
-  scenario "タスク作成のテスト" do
-    visit new_task_path
-    fill_in 'task_name', with:'test_task_01'
-    fill_in 'task_detail', with: 'testtesttest'
-    click_button '登録する'
-    expect(page).to have_content('testtesttest')
-  end
-
-  scenario "タスク詳細のテスト" do
-    Task.create!(name: 'test_task_01', detail: 'testtesttest')
-    visit '/tasks/4'
-    expect(page).to have_content('testtesttest')
+    expect(Task.all.order(created_at: "DESC")).to eq [name: "test_task_03", name: "test_task_02",name: "test_task_01"]
   end
 end
