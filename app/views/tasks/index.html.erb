@@ -2,23 +2,27 @@
 <%= render 'layouts/messages' %>
 
 <table>
-  <tr>
-    <th><%= t('view.name') %></th>　
-    <th><%= t('view.detail') %></th>
-    <th><%= t('view.created_at') %></th>
-    <th>詳細</th>
-    <th>編集</th>
-    <th>削除</th>
-  </tr>
-  <% @tasks.each do |task| %>
+  <thead>
     <tr>
-      <td><%= task.name %></td>
-      <td><%= task.detail %></td>
-      <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
-      <td><%= link_to "詳細", task_path(task.id) %></td>
-      <td><%= link_to "編集", edit_task_path(task.id) %></td>
-      <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
+      <th><%= t('view.name') %></th>　
+      <th><%= t('view.detail') %></th>
+      <th><%= t('view.created_at') %></th>
+      <th>詳細</th>
+      <th>編集</th>
+      <th>削除</th>
     </tr>
+   </thead>
+  <% @tasks.each do |task| %>
+    <tbody>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.detail %></td>
+        <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
+        <td><%= link_to "詳細", task_path(task.id) %></td>
+        <td><%= link_to "編集", edit_task_path(task.id) %></td>
+        <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
+      </tr>
+    </tbody>
   <% end %>
 </table>
 
