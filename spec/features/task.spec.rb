@@ -9,6 +9,6 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
     visit tasks_path
-    expect(first('tr')).to have_content 'samplesample'
+    expect(first("table")).to have_content 'samplesample'
   end
 end
