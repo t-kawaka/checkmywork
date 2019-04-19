@@ -2,6 +2,7 @@ ja:
   view:
     name: タスク名
     detail: タスク詳細
+    created_at: タスク作成日時
   activerecord:
     attributes:
       task:
