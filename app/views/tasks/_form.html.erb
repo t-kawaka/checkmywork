@@ -9,7 +9,11 @@
     <%= t('view.detail') %>
     <%= form.text_area :detail %>
   </div>
+  <div class="task_deadline">
+    <%= t('view.deadline') %>
+    <%= form.date_select :deadline, {:use_two_digit_numbers  => true} %>
+  </div>
   <%= form.submit %>
 <% end %>
 
-<%= link_to "ブログ一覧画面に戻る", tasks_path %>
+<%= link_to "タスク一覧画面に戻る", tasks_path %>
