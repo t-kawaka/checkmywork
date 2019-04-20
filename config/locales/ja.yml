@@ -5,11 +5,13 @@ ja:
     created_at: タスク作成日時
     deadline: 終了期限
   activerecord:
+    models:
+      task: タスク
     attributes:
       task:
         name: タスク名
         detail: タスク詳細
-        deadline: 終了期限
+        deadline: "終了期限"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

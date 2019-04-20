@@ -2,16 +2,16 @@
   <%= render 'layouts/error_explanations' %>
 
   <div class="task_name">
-    <%= t('view.name') %>
+    <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
   <div class="task_detail">
-    <%= t('view.detail') %>
+    <%= form.label :detail %>
     <%= form.text_area :detail %>
   </div>
   <div class="task_deadline">
-    <%= t('view.deadline') %>
-    <%= form.date_select :deadline, {:use_two_digit_numbers  => true } %>
+    <%= form.label :deadline %>
+    <%= form.date_field :deadline %>
   </div>
   <%= form.submit %>
 <% end %>
