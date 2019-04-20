@@ -1,7 +1,9 @@
 # 開発環境
 
 ・Ruby version 2.6.1
+
 ・Ruby on rail version 5.2.3
+
 ・PostgreSQL version 9.5.14
 
 # Heroku デプロイ手順
@@ -17,10 +19,6 @@
 
 4. Herokuへデータベースを作成
 　$ heroku run rails db:migrate
-
-# checkmywork 構造
-
-#### userモデル
 
 # checkmywork 構造
 
