@@ -20,7 +20,6 @@
 4. Herokuへデータベースを作成
 　$ heroku run rails db:migrate
 
-
 # checkmywork 構造
 
 #### userモデル
