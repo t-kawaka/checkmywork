@@ -4,6 +4,12 @@ class TasksController < ApplicationController
   def index
     if params[:deadline]
       @tasks = Task.all.order(deadline: :desc)
+    elsif params[:name] && params[:situation]
+      @tasks = Task.check_name(params[:name]).check_situation(params[:situation])
+    eisif params[:name] && params[:situation] == ""
+      @tasks = Task.check_name(params[:name])
+    elsif params[:name] == nil && params[:situation]
+      @tasks = Task.check_situation(params[:situation])
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -47,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline)
+    params.require(:task).permit(:name, :detail, :deadline, :situation)
   end
 
   def set_task
