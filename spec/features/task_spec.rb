@@ -57,11 +57,11 @@ RSpec.feature "タスク管理機能", type: :feature do
     end
 
     scenario "タイトルとステータスで検索してタスクが正常に並ぶかのテスト" do
-        visit tasks_path
-        fill_in 'name', with: 'test_task_02'
-        select '着手中', from: 'situation'
-        click_button '検索する'
-        expect(page).to have_content 'testtesttest'
+      visit tasks_path
+      fill_in 'name', with: 'test_task_02'
+      select '着手中', from: 'situation'
+      click_button '検索する'
+      expect(page).to have_content 'testtesttest'
     end
   end
 end
