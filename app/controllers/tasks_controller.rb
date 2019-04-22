@@ -4,12 +4,12 @@ class TasksController < ApplicationController
   def index
     if params[:deadline]
       @tasks = Task.all.order(deadline: :desc)
-    elsif params[:name] && params[:situation]
-      @tasks = Task.check_name(params[:name]).check_situation(params[:situation])
-    eisif params[:name] && params[:situation] == ""
-      @tasks = Task.check_name(params[:name])
+    elsif params[:name] && params[:situation] == ""
+      @tasks = Task.search_name(params[:name])
     elsif params[:name] == nil && params[:situation]
-      @tasks = Task.check_situation(params[:situation])
+      @tasks = Task.search_situation(params[:situation])
+    elsif params[:name] && params[:situation]
+      @tasks = Task.search_name(params[:name]).search_situation(params[:situation])
     else
       @tasks = Task.all.order(created_at: :desc)
     end
