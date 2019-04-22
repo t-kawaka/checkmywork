@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "タスク管理機能", type: :feature do
   background do
     FactoryBot.create(:task, name:"test_task_01", deadline: DateTime.now + 1)
-    FactoryBot.create(:task, name:"test_task_02", deadline: DateTime.now + 3)
+    FactoryBot.create(:task, name:"test_task_02", deadline: DateTime.now + 3, situation: "着手中")
     FactoryBot.create(:second_task, name:"test_task_03", deadline: DateTime.now + 2)
   end
 
@@ -19,12 +19,13 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in 'task_name', with:'test_task_04'
     fill_in 'task_detail', with: 'testtesttest04'
     fill_in 'task_deadline', with: DateTime.now + 2
+    select '着手中', from: 'task[situation]'
     click_button '登録する'
     expect(page).to have_content 'testtesttest04'
   end
 
   scenario "タスクの詳細のテスト" do
-    @task =Task.create!(name: 'test_task_05', detail: 'testtesttest05', deadline: DateTime.now + 2)
+    @task =Task.create!(name: 'test_task_05', detail: 'testtesttest05', deadline: DateTime.now + 2, situation: "着手中")
     visit task_path(@task)
     expect(page).to have_content 'testtesttest05'
   end
@@ -38,5 +39,29 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_link "終了期限でソートする"
     expect(first("tbody tr")).to have_content 'test_task_02'
+  end
+
+  context '入力検索の絞り込みテスト' do
+    scenario "タスク名の入力検索でタスク名が表示するかの絞り込みテスト" do
+      visit tasks_path
+      fill_in 'name', with:'test_task_03'
+      click_button '検索する'
+      expect(page).to have_content 'samplesample'
+    end
+
+    scenario "ステータスの入力検索でステータスが表示するかの絞り込みテスト" do
+      visit tasks_path
+      fill_in 'name', with:''
+      select '未着手', from: 'situation'
+      expect(page).to have_content 'testtesttest'
+    end
+
+    scenario "タイトルとステータスで検索してタスクが正常に並ぶかのテスト" do
+        visit tasks_path
+        fill_in 'name', with: 'test_task_02'
+        select '着手中', from: 'situation'
+        click_button '検索する'
+        expect(page).to have_content 'testtesttest'
+    end
   end
 end
