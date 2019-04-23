@@ -17,6 +17,10 @@
     <%= form.label :situation %>
     <%= form.select :situation, options_for_select(Task.situations) %>
   </div>
+  <div class="task_priority">
+    <%= form.label :priority %>
+    <%= form.select :priority, options_for_select(Task.priorities.keys) %>
+  </div>
   <div class="action">
     <%= form.submit %>
   </div>

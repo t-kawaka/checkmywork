@@ -5,6 +5,7 @@ ja:
     created_at: タスク作成日時
     deadline: 終了期限
     situation: ステータス
+    priority: 優先順位
   activerecord:
     models:
       task: タスク
@@ -14,6 +15,13 @@ ja:
         detail: タスク詳細
         deadline: 終了期限
         situation: ステータス
+        priority: 優先順位
+  enums:
+    task:
+      priority:
+        high: 高
+        medium: 中
+        low: 低
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

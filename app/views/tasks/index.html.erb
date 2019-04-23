@@ -16,6 +16,7 @@
     <%= form.submit "検索する" %>
   </div>
 <% end %>
+<%= link_to "元に戻す", tasks_path %><br>
 
 <table>
   <thead>
@@ -25,6 +26,7 @@
       <th><%= t('view.created_at') %></th>
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
+      <th><%= t('view.priority') %></th>
       <th>詳細</th>
       <th>編集</th>
       <th>削除</th>
@@ -38,6 +40,7 @@
         <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
         <td><%= task.situation %></td>
+        <td><%= task.priority %></td>
         <td><%= link_to "詳細", task_path(task.id) %></td>
         <td><%= link_to "編集", edit_task_path(task.id) %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
@@ -49,3 +52,4 @@
 <%= link_to "タスクを作成する", new_task_path %>
 <%= link_to "タスクの作成日時順を表示", tasks_path %>
 <%= link_to "終了期限でソートする", tasks_path(deadline: 'true') %>
+<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true') %>
