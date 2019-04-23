@@ -13,6 +13,9 @@
     <%= form.label :deadline %>
     <%= form.date_field :deadline %>
   </div>
+  <div class="task_situation">
+    <%= form.label :situation %>
+    <%= form.select :situation, options_for_select(Task.situations) %>
   <%= form.submit %>
 <% end %>
 

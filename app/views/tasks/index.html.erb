@@ -1,6 +1,22 @@
 <h1>タスク 一覧</h1>
 <%= render 'layouts/messages' %>
 
+<%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
+  <div class="field">
+    <%= form.label :タスク名 %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ステータス %>
+    <%= form.select :situation, Task.situations.keys, include_blank: true, selected: "" %>
+  </div>
+
+  <div class="field">
+    <%= form.submit "検索する" %>
+  </div>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -8,6 +24,7 @@
       <th><%= t('view.detail') %></th>
       <th><%= t('view.created_at') %></th>
       <th><%= t('view.deadline') %></th>
+      <th><%= t('view.situation') %></th>
       <th>詳細</th>
       <th>編集</th>
       <th>削除</th>
@@ -20,6 +37,7 @@
         <td><%= task.detail %></td>
         <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
+        <td><%= task.situation %></td>
         <td><%= link_to "詳細", task_path(task.id) %></td>
         <td><%= link_to "編集", edit_task_path(task.id) %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
