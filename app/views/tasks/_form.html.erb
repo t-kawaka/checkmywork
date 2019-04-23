@@ -16,7 +16,10 @@
   <div class="task_situation">
     <%= form.label :situation %>
     <%= form.select :situation, options_for_select(Task.situations) %>
-  <%= form.submit %>
+  </div>
+  <div class="action">
+    <%= form.submit %>
+  </div>
 <% end %>
 
 <%= link_to "タスク一覧画面に戻る", tasks_path %>
