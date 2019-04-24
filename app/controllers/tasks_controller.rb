@@ -4,6 +4,8 @@ class TasksController < ApplicationController
   def index
     if params[:deadline]
       @tasks = Task.all.order(deadline: :desc)
+    elsif params[:priority]
+      @tasks = Task.priority
     elsif params[:name] && params[:situation] == ""
       @tasks = Task.search_name(params[:name])
     elsif params[:name] == nil && params[:situation]
@@ -53,7 +55,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :situation)
+    params.require(:task).permit(:name, :detail, :deadline, :situation, :priority)
   end
 
   def set_task

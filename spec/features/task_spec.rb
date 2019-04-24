@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-    FactoryBot.create(:task, name:"test_task_01", deadline: DateTime.now + 1)
+    FactoryBot.create(:task, name:"test_task_01", deadline: DateTime.now + 1, priority: "高")
     FactoryBot.create(:task, name:"test_task_02", deadline: DateTime.now + 3, situation: "着手中")
     FactoryBot.create(:second_task, name:"test_task_03", deadline: DateTime.now + 2)
   end
@@ -20,12 +20,13 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in 'task_detail', with: 'testtesttest04'
     fill_in 'task_deadline', with: DateTime.now + 2
     select '着手中', from: 'task[situation]'
+    select '高', from: 'task[priority]'
     click_button '登録する'
     expect(page).to have_content 'testtesttest04'
   end
 
   scenario "タスクの詳細のテスト" do
-    @task =Task.create!(name: 'test_task_05', detail: 'testtesttest05', deadline: DateTime.now + 2, situation: "着手中")
+    @task =Task.create!(name: 'test_task_05', detail: 'testtesttest05', deadline: DateTime.now + 2, situation: "着手中", priority: "中")
     visit task_path(@task)
     expect(page).to have_content 'testtesttest05'
   end
@@ -63,5 +64,11 @@ RSpec.feature "タスク管理機能", type: :feature do
       click_button '検索する'
       expect(page).to have_content 'testtesttest'
     end
+  end
+
+  scenario "タスクが優先順位通りに並ぶかのテスト" do
+    visit tasks_path
+    click_link "優先順位を高い順にソートする"
+    expect(first("tbody tr")).to have_content 'test_task_01'
   end
 end
