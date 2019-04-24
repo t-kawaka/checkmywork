@@ -53,3 +53,5 @@
 <%= link_to "タスクの作成日時順を表示", tasks_path %>
 <%= link_to "終了期限でソートする", tasks_path(deadline: 'true') %>
 <%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true') %>
+
+<%= paginate @tasks %>
