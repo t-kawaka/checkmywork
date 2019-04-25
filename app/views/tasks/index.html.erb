@@ -20,6 +20,10 @@
 <% end %>
 <%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 
+<div class="paginate_1">
+  <%= paginate @tasks %>
+</div>
+
 <table class="table table-hover boards__table">
   <thead class="thead-dark">
     <tr>
@@ -29,9 +33,9 @@
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
       <th><%= t('view.priority') %></th>
-      <th>詳細</th>
-      <th>編集</th>
-      <th>削除</th>
+      <th class="text-center">詳細</th>
+      <th  class="text-center">編集</th>
+      <th  class="text-center">削除</th>
     </tr>
    </thead>
   <% @tasks.each do |task| %>
@@ -55,6 +59,6 @@
 <%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
 <%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
 
-<div class="paginate mt-2">
+<div class="paginate_2 mt-2">
   <%= paginate @tasks %>
 </div>
