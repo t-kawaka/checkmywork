@@ -1,4 +1,6 @@
+
 <h1>タスク 一覧</h1>
+
 <%= render 'layouts/messages' %>
 
 <%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
@@ -13,13 +15,17 @@
   </div>
 
   <div class="field">
-    <%= form.submit "検索する" %>
+    <%= form.submit "検索する", class:"btn btn-success" %>
   </div>
 <% end %>
-<%= link_to "元に戻す", tasks_path %><br>
+<%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 
-<table>
-  <thead>
+<div class="paginate_1">
+  <%= paginate @tasks %>
+</div>
+
+<table class="table table-hover boards__table">
+  <thead class="thead-dark">
     <tr>
       <th><%= t('view.name') %></th>　
       <th><%= t('view.detail') %></th>
@@ -27,9 +33,9 @@
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
       <th><%= t('view.priority') %></th>
-      <th>詳細</th>
-      <th>編集</th>
-      <th>削除</th>
+      <th class="text-center">詳細</th>
+      <th  class="text-center">編集</th>
+      <th  class="text-center">削除</th>
     </tr>
    </thead>
   <% @tasks.each do |task| %>
@@ -41,15 +47,18 @@
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
         <td><%= task.situation %></td>
         <td><%= task.priority %></td>
-        <td><%= link_to "詳細", task_path(task.id) %></td>
-        <td><%= link_to "編集", edit_task_path(task.id) %></td>
-        <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
+        <td><%= link_to "詳細", task_path(task.id), class:"btn btn-info" %></td>
+        <td><%= link_to "編集", edit_task_path(task.id), class:"btn btn-info" %></td>
+        <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger" %></td>
       </tr>
     </tbody>
   <% end %>
 </table>
 
-<%= link_to "タスクを作成する", new_task_path %>
-<%= link_to "タスクの作成日時順を表示", tasks_path %>
-<%= link_to "終了期限でソートする", tasks_path(deadline: 'true') %>
-<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true') %>
+<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
+<%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
+<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
+
+<div class="paginate_2 mt-2">
+  <%= paginate @tasks %>
+</div>

@@ -22,6 +22,13 @@ ja:
         high: 高
         medium: 中
         low: 低
+  views:
+    pagination:
+      first: '最初'
+      last: '最後'
+      previous: '前'
+      next: '次'
+      truncate: '...'
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

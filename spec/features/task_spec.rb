@@ -21,7 +21,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in 'task_deadline', with: DateTime.now + 2
     select '着手中', from: 'task[situation]'
     select '高', from: 'task[priority]'
-    click_button '登録する'
+    click_button '保存'
     expect(page).to have_content 'testtesttest04'
   end
 
@@ -70,5 +70,13 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_link "優先順位を高い順にソートする"
     expect(first("tbody tr")).to have_content 'test_task_01'
+  end
+
+  scenario "ページネーションのテスト" do
+    (1..50).each do |i|
+      Task.create(name: "タスク名#{i}", detail: "コンテンツ#{i}",  deadline: "2019-04-29 15:00:00", situation: "未着手",  priority: "低")
+    end
+    visit tasks_path
+    expect(page).to have_content '最後'
   end
 end

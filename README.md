@@ -32,7 +32,7 @@
 
 |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |カラム名 : データ型  |
 |---|---|---|---|---|---|
-|name : string  |detail : text  |deadline : datetime  |situation : string  |priority : string  |user : references  |
+|name : string  |detail : text  |deadline : datetime  |situation : string  |priority : integer  |user : references  |
 
 #### missionモデル
 |カラム名 : データ型  |カラム名 : データ型  |

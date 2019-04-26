@@ -1,29 +1,34 @@
-<%= form_with(model: @task, local: true) do |form| %>
-  <%= render 'layouts/error_explanations' %>
+<div class="container col-6 offset-3">
+  <div class="title_form">
+    <h1>作成フォーム</h1>
+  </div>
+  <%= form_with(model: @task, local: true) do |form| %>
+    <%= render 'layouts/error_explanations' %>
 
-  <div class="task_name">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-  <div class="task_detail">
-    <%= form.label :detail %>
-    <%= form.text_area :detail %>
-  </div>
-  <div class="task_deadline">
-    <%= form.label :deadline %>
-    <%= form.date_field :deadline %>
-  </div>
-  <div class="task_situation">
-    <%= form.label :situation %>
-    <%= form.select :situation, options_for_select(Task.situations) %>
-  </div>
-  <div class="task_priority">
-    <%= form.label :priority %>
-    <%= form.select :priority, options_for_select(Task.priorities.keys) %>
-  </div>
-  <div class="action">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= form.label :detail %>
+      <%= form.text_area :detail, class: 'form-control', rows: 5 %>
+    </div>
+    <div class="form-group">
+      <%= form.label :deadline %>
+      <%= form.date_field :deadline %>
+    </div>
+    <div class="form-group">
+      <%= form.label :situation %>
+      <%= form.select :situation, options_for_select(Task.situations) %>
+    </div>
+    <div class="form-group">
+      <%= form.label :priority %>
+      <%= form.select :priority, options_for_select(Task.priorities.keys) %>
+    </div>
+    <div class="action">
+      <%= form.submit'保存', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 
-<%= link_to "タスク一覧画面に戻る", tasks_path %>
+  <%= link_to "タスク一覧画面に戻る", tasks_path, class:"btn btn-light mt-3 mb-5" %>
+</div>
