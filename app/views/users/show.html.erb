@@ -1,0 +1,19 @@
+<div class="container col-6 offset-3">
+  <h1>ユーザーの詳細</h1>
+  <table class="table table-hover boards__table">
+    <thead class="thead-dark">
+      <tr>
+        <th><%= t('view.id') %></th>
+        <td><%= @user.id %></td>
+      </tr>
+      <tr>
+        <th><%= t('view.user') %></th>
+        <td><%= @user.user %></td>
+      </tr>
+      <tr>
+        <th><%= t('view.email') %></th>
+        <td><%= @user.email %></td>
+      </tr>
+     </thead>
+  </table>
+</div>
