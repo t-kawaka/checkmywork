@@ -19,6 +19,8 @@
 <% end %>
 <%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 
+<%= link_to "タスクを作成する", new_task_path, class:"btn btn-primary mb-3" %><br>
+
 <div class="paginate_1">
   <%= paginate @tasks %>
 </div>
