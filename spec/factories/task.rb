@@ -5,6 +5,7 @@ FactoryBot.define do
     deadline { DateTime.now + 1 }
     situation { '未着手' }
     priority { '低' }
+    user
   end
 
   factory :second_task, class: Task do
@@ -13,5 +14,6 @@ FactoryBot.define do
     deadline { DateTime.now + 1}
     situation { '着手中' }
     priority { '中' }
+    user
   end
 end
