@@ -46,8 +46,8 @@
         <td><%= task.detail %></td>
         <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
-        <td><%= task.situation %></td>
-        <td><%= task.priority %></td>
+        <td class="text-center"><%= task.situation %></td>
+        <td class="text-center"><%= task.priority %></td>
         <td><%= link_to "詳細", task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to "編集", edit_task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger" %></td>
