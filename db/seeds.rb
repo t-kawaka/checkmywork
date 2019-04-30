@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 if Rails.env == "development"
   (1..50).each do |i|
-    name = Faker::Pokemon.name
+    name = Faker::Games::Pokemon.name
     Task.create(name: name, detail: "コンテンツ#{i}",  deadline: "2019-04-29 15:00:00", situation: "未着手",  priority: "低")
   end
 end

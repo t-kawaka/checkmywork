@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required, only: [:new, :create]
-  before_action :correct_user, only: [:show]
+  skip_before_action :login_required, only: %i[new create]
+  before_action :correct_user, only: %i[show]
 
   def show
   end
@@ -17,9 +17,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "ユーザー「#{@user.user}」の新規登録に成功しました"
-      redirect_to root_path
+      redirect_to tasks_path
     else
-      flash.now[:danger] = 'ユーザーの新規登録とログインに失敗しました'
+      flash.now[:danger] = 'ユーザーの新規登録に失敗しました'
       render :new
     end
   end

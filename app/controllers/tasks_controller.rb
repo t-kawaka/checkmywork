@@ -3,17 +3,17 @@ class TasksController < ApplicationController
 
   def index
     if params[:deadline]
-      @tasks = Task.all.expired.page(params[:page])
+      @tasks = current_user.tasks.expired.page(params[:page])
     elsif params[:priority]
-      @tasks = Task.all.priority.page(params[:page])
+      @tasks = current_user.tasks.priority.page(params[:page])
     elsif params[:name] && params[:situation] == ""
-      @tasks = Task.search_name(params[:name]).page(params[:page])
+      @tasks = current_user.tasks.search_name(params[:name]).page(params[:page])
     elsif params[:name] == nil && params[:situation]
-      @tasks = Task.search_situation(params[:situation]).page(params[:page])
+      @tasks = current_user.tasks.search_situation(params[:situation]).page(params[:page])
     elsif params[:name] && params[:situation]
-      @tasks = Task.search_name(params[:name]).search_situation(params[:situation]).page(params[:page])
+      @tasks = current_user.tasks.search_name(params[:name]).search_situation(params[:situation]).page(params[:page])
     else
-      @tasks = Task.all.recent.page(params[:page])
+      @tasks = current_user.tasks.recent.page(params[:page])
     end
   end
 
@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task= Task.new(task_params)
+    @task= current_user.tasks.new(task_params)
     if @task.save
       flash[:notice] = "タスク「#{@task.name}」を作成しました"
       redirect_to tasks_path
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_path
-    flash[:notice] = "タスク「#{@task.name}」を更新しました"
+    flash[:notice] = "タスク「#{@task.name}」を削除しました"
   end
 
   private
@@ -59,6 +59,6 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 end

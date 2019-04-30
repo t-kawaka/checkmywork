@@ -11,6 +11,7 @@ class Task < ApplicationRecord
   scope :search_name, -> (name) { where('name LIKE ?',  "%#{name}%") }
   scope :search_situation, -> (situation) { where(situation: situation) }
   scope :priority, -> { order(priority: :desc)}
+  belongs_to :user
 
   def validate_name_not_including_comma
     errors.add(:name, "にカンマを含めることはできません") if name&.include?(',')
