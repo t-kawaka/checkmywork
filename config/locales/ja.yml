@@ -6,6 +6,11 @@ ja:
     deadline: 終了期限
     situation: ステータス
     priority: 優先順位
+    id: ID
+    user: ユーザー名
+    email: メールアドレス
+    password: パスワード
+    password_confirmation: パスワード（確認）
   activerecord:
     models:
       task: タスク
@@ -16,6 +21,13 @@ ja:
         deadline: 終了期限
         situation: ステータス
         priority: 優先順位
+      user:
+        user: ユーザー
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        created_at: 登録日時
+        updated_at: 更新日時
   enums:
     task:
       priority:

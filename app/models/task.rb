@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
+  validate :validate_name_not_including_comma
   validates :detail, presence: true
   validates :deadline, presence: true
   validate :deadline_cannnot_be_in_the_past_and_today
@@ -10,6 +11,11 @@ class Task < ApplicationRecord
   scope :search_name, -> (name) { where('name LIKE ?',  "%#{name}%") }
   scope :search_situation, -> (situation) { where(situation: situation) }
   scope :priority, -> { order(priority: :desc)}
+  belongs_to :user
+
+  def validate_name_not_including_comma
+    errors.add(:name, "にカンマを含めることはできません") if name&.include?(',')
+  end
 
   def deadline_cannnot_be_in_the_past_and_today
     if deadline.present? && deadline.past?

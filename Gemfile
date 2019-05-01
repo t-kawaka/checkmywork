@@ -14,9 +14,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rails-i18n'
 gem 'enum_help'
 gem 'kaminari'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'faker'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -2,15 +2,22 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-    FactoryBot.create(:task, name:"test_task_01", deadline: DateTime.now + 1, priority: "高")
-    FactoryBot.create(:task, name:"test_task_02", deadline: DateTime.now + 3, situation: "着手中")
-    FactoryBot.create(:second_task, name:"test_task_03", deadline: DateTime.now + 2)
+    user = User.new(user: "user1", email: 'user1@gmail.com', password: 'foobar', password_confirmation: 'foobar')
+
+    FactoryBot.create(:task, name:"test_task_01", deadline: DateTime.now + 1, priority: "高", user: user)
+    FactoryBot.create(:task, name:"test_task_02", deadline: DateTime.now + 3, situation: "着手中", user: user)
+    FactoryBot.create(:second_task, name:"test_task_03", deadline: DateTime.now + 2, user: user)
+
+    visit login_path
+    fill_in 'メールアドレス', with:'user1@gmail.com'
+    fill_in 'パスワード', with: 'foobar'
+    click_button 'ログインする'
   end
 
   scenario "タスク一覧のテスト" do
     visit tasks_path
-    expect(page).to have_content 'testtest'
-    expect(page).to have_content 'samplesample'
+    expect(page).to have_content 'test_task_01'
+    expect(page).to have_content 'test_task_02'
   end
 
   scenario "タスク作成のテスト" do
@@ -26,9 +33,26 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクの詳細のテスト" do
-    @task =Task.create!(name: 'test_task_05', detail: 'testtesttest05', deadline: DateTime.now + 2, situation: "着手中", priority: "中")
-    visit task_path(@task)
-    expect(page).to have_content 'testtesttest05'
+    visit tasks_path
+    click_link '詳細', match: :first
+    expect(page).to have_content 'test_task_03'
+  end
+
+  scenario "タスク編集のテスト" do
+    visit tasks_path
+    click_link '編集', match: :first
+
+    fill_in 'task_name', with: '編集のテスト'
+    click_button '保存'
+
+    expect(page).to have_content 'タスク「編集のテスト」を更新しました'
+  end
+
+  scenario "タスク削除のテスト" do
+    visit tasks_path
+    click_link '削除', match: :first
+
+    expect(page).to have_content 'タスク「test_task_03」を削除しました'
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
@@ -70,13 +94,5 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_link "優先順位を高い順にソートする"
     expect(first("tbody tr")).to have_content 'test_task_01'
-  end
-
-  scenario "ページネーションのテスト" do
-    (1..50).each do |i|
-      Task.create(name: "タスク名#{i}", detail: "コンテンツ#{i}",  deadline: "2019-04-29 15:00:00", situation: "未着手",  priority: "低")
-    end
-    visit tasks_path
-    expect(page).to have_content '最後'
   end
 end
