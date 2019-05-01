@@ -8,10 +8,10 @@
       <th><%= t('view.id') %></th>　
       <th><%= t('view.user') %></th>
       <th><%= t('view.email') %></th>
-      <th><%= t('view.admin') %></th>
-      <th>タスク数</th>
-      <th>編集</th>
-      <th>削除</th>
+      <th class="text-center"><%= t('view.admin') %></th>
+      <th class="text-center">タスク数</th>
+      <th class="text-center">編集</th>
+      <th class="text-center">削除</th>
     </tr>
    </thead>
   <% @users.each do |user| %>
@@ -20,10 +20,10 @@
         <td><%= user.id %></td>
         <td><%= link_to user.user, admin_user_path(user.id) %></td>
         <td><%= user.email %></td>
-        <td><%= user.admin?? 'あり':'なし' %></td>
-        <td><%= user.tasks.count %>
-        <td><%= link_to "編集", edit_admin_user_path(user.id), class:"btn btn-info" %></td>
-        <td><%= link_to '削除', [:admin, user], method: :delete ,data: { confirm: 'ユーザー「#{user.user}」を削除します。本当に削除していいですか？' }, class:"btn btn-danger" %></td>
+        <td class="text-center"><%= user.admin?? 'あり':'なし' %></td>
+        <td class="text-center"><%= user.tasks.count %>
+        <td class="text-center"><%= link_to "編集", edit_admin_user_path(user.id), class:"btn btn-info" %></td>
+        <td class="text-center"><%= link_to '削除', [:admin, user], method: :delete ,data:  { confirm: "ユーザー「#{user.user}」を削除します。よろしいですか？"}, class:"btn btn-danger" %></td>
       </tr>
     </tbody>
   <% end %>
