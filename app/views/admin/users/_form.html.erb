@@ -1,6 +1,4 @@
-<h1>ユーザー登録</h1>
-
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h3><%= @user.errors.count %>件のエラーがあります。</h3>
@@ -11,20 +9,24 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class = "form-group">
+
+  <div class ="form-group">
     <%= f.label :user %>
     <%= f.text_field :user, class: "form-control" %>
   </div>
-  <div class = "form-group">
+  <div class ="form-group">
     <%= f.label :email %>
     <%= f.email_field :email, class: "form-control" %>
   </div>
-  <div class = "form-group">
+  <div class ="form-check">
+    <%= f.label :admin, class: "form-checkout-label" %>
+    <%= f.check_box :admin, class: "form-check-input ml-2" %>
+  </div>
+  <div class ="form-group">
     <%= f.label :password %>
     <%= f.password_field :password, class: "form-control" %>
   </div>
-  <div class = "form-group">
+  <div class ="form-group">
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
