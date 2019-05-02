@@ -7,4 +7,13 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
   has_many :tasks, dependent: :destroy
   scope :recent, -> { order(created_at: :desc) }
+  before_destroy :do_not_destroy_admin_user
+
+  private
+
+  def do_not_destroy_admin_user
+    if admin && User.where(admin: true).count <=1
+      throw(:abort)
+    end
+  end
 end

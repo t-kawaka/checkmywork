@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :login_required, only: %i[new create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   def index
     @users = User.all.includes(:tasks).recent
@@ -50,7 +51,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = "ユーザー「#{@user.user}」を削除しました"
     else
       redirect_to admin_users_path
-      flash[:notice] = "ユーザー「#{@user.user}」を削除に失敗しました"
+      flash[:notice] = "管理者が1人であるため削除に失敗しました"
     end
   end
 
@@ -62,5 +63,10 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def require_admin
+    redirect_to root_path unless current_user.admin?
+    flash[:notice] = "アクセスの権限がありません" 
   end
 end
