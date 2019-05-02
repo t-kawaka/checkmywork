@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @tasks = current_user.tasks.recent.page(params[:page])
+    @tasks = @user.tasks.recent.page(params[:page])
   end
 
   def new
@@ -25,6 +25,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = "タスク「#{@user.user}」を作成しました"
       redirect_to admin_users_path
     else
+      flash[:notice] = "ユーザー「#{@user.user}」の作成に失敗しました"
       render 'new'
     end
   end
@@ -38,6 +39,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = "ユーザー「#{@user.user}」を更新しました"
       redirect_to admin_users_path
     else
+      flash[:notice] = "ユーザー「#{@user.user}」の更新に失敗しました"
       render 'edit'
     end
   end

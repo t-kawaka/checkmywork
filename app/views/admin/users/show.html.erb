@@ -30,7 +30,7 @@
   </table>
 </div>
 
-<h2><%= "#{current_user.user}のタスク一覧" %></h2>
+<h2><%= "#{@user.user}のタスク一覧" %></h2>
 
 <div class="paginate_1">
   <%= paginate @tasks %>

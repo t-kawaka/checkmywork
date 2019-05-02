@@ -1,38 +1,4 @@
-<h1>ユーザー登録 編集</h1>
-
-<%= form_with(model: [:admin, @user], local: true) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h3><%= @user.errors.count %>件のエラーがあります。</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class ="form-group">
-    <%= f.label :user %>
-    <%= f.text_field :user, class: "form-control" %>
-  </div>
-  <div class ="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
-  <div class ="form-check">
-    <%= f.label :admin, class: "form-checkout-label" %>
-    <%= f.check_box :admin, class: "form-check-input ml-2" %>
-  </div>
-  <div class ="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
-  <div class ="form-group">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, class: "form-control" %>
-  </div>
-  <div class="action">
-    <%= f.submit "登録する", class: "btn btn-primary mb-5" %>
-  </div>
-<% end %>
+<div class="container col-8 offset-2">
+  <h1>ユーザー登録 編集</h1>
+  <%= render partial: 'form', locals: {user: @user} %>
+</div>

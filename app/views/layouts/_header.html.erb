@@ -7,10 +7,10 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <% if current_user %>
-            <li><%= link_to "登録者情報", user_path(current_user.id), class: 'nav-link' %></li>
             <% if current_user.admin? %>
-              <li><%= link_to "ユーザー一覧", admin_users_path, class: 'nav-link ml-5' %></li>
+              <li><%= link_to "管理者 ユーザー一覧", admin_users_path, class: 'nav-link' %></li>
             <% end %>
+            <li><%= link_to "登録者情報", user_path(current_user.id), class: 'nav-link ml-5' %></li>
             <li><%= link_to "ログアウト", logout_path, method: :delete, class: 'nav-link ml-5' %></li>
           <% else %>
             <li><%= link_to "新規登録", new_admin_user_path, class: 'nav-link' %></li>
