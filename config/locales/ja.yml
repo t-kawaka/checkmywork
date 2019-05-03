@@ -3,12 +3,16 @@ ja:
     name: タスク名
     detail: タスク詳細
     created_at: タスク作成日時
+    updated_at: タスク更新日時
+    user_created_at: ユーザー作成日時
+    user_updated_at: ユーザー更新日時
     deadline: 終了期限
     situation: ステータス
     priority: 優先順位
     id: ID
     user: ユーザー名
     email: メールアドレス
+    admin: 管理者権限
     password: パスワード
     password_confirmation: パスワード（確認）
   activerecord:
@@ -22,12 +26,13 @@ ja:
         situation: ステータス
         priority: 優先順位
       user:
-        user: ユーザー
+        user: ユーザー名
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
         created_at: 登録日時
         updated_at: 更新日時
+        admin: 管理者権限
   enums:
     task:
       priority:

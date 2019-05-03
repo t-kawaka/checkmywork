@@ -1,0 +1,34 @@
+<h1>ユーザー一覧</h1>
+
+<%= render 'layouts/messages' %>
+
+<table class="table table-hover boards__table">
+  <thead class="thead-dark">
+    <tr>
+      <th><%= t('view.id') %></th>　
+      <th><%= t('view.user') %></th>
+      <th><%= t('view.email') %></th>
+      <th class="text-center"><%= t('view.admin') %></th>
+      <th class="text-center">タスク数</th>
+      <th class="text-center">編集</th>
+      <th class="text-center">削除</th>
+    </tr>
+   </thead>
+  <% @users.each do |user| %>
+    <tbody>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= link_to user.user, admin_user_path(user.id) %></td>
+        <td><%= user.email %></td>
+        <td class="text-center"><%= user.admin?? 'あり':'なし' %></td>
+        <td class="text-center"><%= user.tasks.count %>
+        <td class="text-center"><%= link_to "編集", edit_admin_user_path(user.id), class:"btn btn-info" %></td>
+        <td class="text-center"><%= link_to '削除', [:admin, user], method: :delete ,data:  { confirm: "ユーザー「#{user.user}」を削除します。よろしいですか？"}, class:"btn btn-danger" %></td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
+
+<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
+<%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
+<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
