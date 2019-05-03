@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :tasks
   root to: 'tasks#index'
 
-  resources :users
+  resources :users, only: [:show, :new, :create, :index]
 end

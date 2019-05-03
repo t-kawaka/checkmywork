@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :login_required, only: %i[new create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin
+  before_action :require_admin, only: [:show, :edit, :update, :index]
 
   def index
     @users = User.all.includes(:tasks).recent
@@ -67,6 +67,5 @@ class Admin::UsersController < ApplicationController
 
   def require_admin
     redirect_to root_path unless current_user.admin?
-    flash[:notice] = "アクセスの権限がありません" 
   end
 end
