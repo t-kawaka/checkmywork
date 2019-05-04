@@ -12,6 +12,8 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.search_situation(params[:situation]).page(params[:page])
     elsif params[:name] && params[:situation]
       @tasks = current_user.tasks.search_name(params[:name]).search_situation(params[:situation]).page(params[:page])
+    elsif params[:label_ids]
+      @tasks = current_user.tasks.page(params[:page]).where(id: TaskLabel.where(label_id: params[:label_ids]).pluck(:task_id))
     else
       @tasks = current_user.tasks.recent.page(params[:page])
     end
@@ -55,7 +57,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :situation, :priority)
+    params.require(:task).permit(:name, :detail, :deadline, :situation, :priority, label_ids: []).merge(user_id: current_user.id)
   end
 
   def set_task

@@ -25,6 +25,14 @@
       <%= form.label :priority %>
       <%= form.select :priority, options_for_select(Task.priorities.keys) %>
     </div>
+    <div class="form-group">
+      <%= form.label :label %>
+      <% Label.all.each do |label| %>
+         <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+         <%= label.title %>
+       <% end %>
+    </div>
+
     <div class="action">
       <%= form.submit'保存', class: 'btn btn-primary' %>
     </div>

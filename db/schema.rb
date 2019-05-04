@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_161148) do
   enable_extension "plpgsql"
 
   create_table "labels", force: :cascade do |t|
-    t.string "title", limit: 30, default: "label", null: false
+    t.string "title", limit: 30, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
