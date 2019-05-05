@@ -12,11 +12,21 @@
     <%= form.label :ステータス %>
     <%= form.select :situation, Task.situations.keys, include_blank: true, selected: "" %>
   </div>
-
   <div class="field">
-    <%= form.submit "検索する", class:"btn btn-success" %>
+    <%= form.submit "検索する", class:"btn btn-success mb-3" %>
+  </div>
+  <% end %>
+
+<%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
+  <div class="field">
+    <%= form.label :ラベル %>
+    <%= form.select :label_ids, Label.all.collect { |p| [ p.title, p.id ] }, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= form.submit "ラベルを検索する", class:"btn btn-success" %>
   </div>
 <% end %>
+
 <%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 <%= link_to "タスクを作成する", new_task_path, class:"btn btn-primary mb-3" %><br>
 

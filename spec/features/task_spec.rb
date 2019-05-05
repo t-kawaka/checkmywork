@@ -72,7 +72,7 @@ RSpec.feature "タスク管理機能", type: :feature do
       click_link "優先順位を高い順にソートする"
       expect(first("tbody tr")).to have_content 'test_task_01'
     end
-  end  
+  end
 
   context '入力検索の絞り込みテスト' do
     scenario "タスク名の入力検索でタスク名が表示するかの絞り込みテスト" do
@@ -97,4 +97,25 @@ RSpec.feature "タスク管理機能", type: :feature do
       expect(page).to have_content 'testtesttest'
     end
   end
+
+  context 'ラベルの動作テスト' do
+    scenario "ラベルの登録・確認" do
+      visit new_task_path
+
+      fill_in 'task_name', with:'test_task_04'
+      fill_in 'task_detail', with: 'testtesttest04'
+      fill_in 'task_deadline', with: DateTime.now + 2
+      select '着手中', from: 'task[situation]'
+      select '高', from: 'task[priority]'
+      check "task_label_ids_1" 
+      click_button '保存'
+      expect(page).to have_content 'testtesttest04'
+
+      visit tasks_path
+      click_link '詳細', match: :first
+      expect(page).to have_content '資料作成'
+
+    end
+  end
+
 end
