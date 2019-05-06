@@ -29,6 +29,6 @@
   <% end %>
 </table>
 
-<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
-<%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
-<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
+<div class="paginate_2 mt-2 mb-5">
+  <%= paginate @users %>
+</div>

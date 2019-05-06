@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin, only: [:show, :edit, :update, :index]
 
   def index
-    @users = User.all.includes(:tasks).recent
+    @users = User.recent.page(params[:page]).includes(:tasks)
   end
 
   def show

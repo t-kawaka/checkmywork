@@ -19,14 +19,14 @@
     </div>
     <div class="form-group">
       <%= form.label :situation %>
-      <%= form.select :situation, options_for_select(Task.situations, selected: Task.situations) %>
+      <%= form.select :situation, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]] %>
     </div>
     <div class="form-group">
       <%= form.label :priority %>
-      <%= form.select :priority, options_for_select(Task.priorities.keys) %>
+      <%= form.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
     </div>
     <div class="form-group">
-      <%= form.label :label %>
+      <%= form.label :title %>
       <% Label.all.each do |label| %>
          <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
          <%= label.title %>

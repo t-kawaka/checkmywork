@@ -15,7 +15,7 @@
   <div class="field">
     <%= form.submit "検索する", class:"btn btn-success mb-3" %>
   </div>
-  <% end %>
+<% end %>
 
 <%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
   <div class="field">
@@ -43,6 +43,7 @@
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
       <th><%= t('view.priority') %></th>
+      <th class="text-center"><%= t('view.label') %></th>
       <th class="text-center">詳細</th>
       <th class="text-center">編集</th>
       <th class="text-center">削除</th>
@@ -53,10 +54,17 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= task.detail %></td>
-        <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
+        <td><%= task.created_at.strftime('%Y年%m月%d日') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
         <td class="text-center"><%= task.situation %></td>
         <td class="text-center"><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |l| %>
+          <ul>
+            <%= l.title %>
+          </ul>
+            <% end %>
+        </td>
         <td><%= link_to "詳細", task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to "編集", edit_task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger" %></td>

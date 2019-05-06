@@ -26,6 +26,6 @@ end
   Label.create!(title: "資料作成")
   Label.create!(title: "会議")
   Label.create!(title: "プレゼン")
-  Label.create!(title: "取引先との打ち合わせ")
+  Label.create!(title: "打ち合わせ")
   end
 end

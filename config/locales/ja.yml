@@ -26,7 +26,7 @@ ja:
         deadline: 終了期限
         situation: ステータス
         priority: 優先順位
-        label: ラベル
+        title: ラベル
       user:
         user: ユーザー名
         email: メールアドレス
