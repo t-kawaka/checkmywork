@@ -2,18 +2,15 @@
 
 <%= render 'layouts/messages' %>
 
-<%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
-  <div class="field">
-    <%= form.label :タスク名 %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ステータス %>
-    <%= form.select :situation, Task.situations.keys, include_blank: true, selected: "" %>
-  </div>
-  <div class="field">
-    <%= form.submit "検索する", class:"btn btn-success mb-3" %>
+<%= search_form_for @search do |f| %>
+  <%= f.label :name_cont,  "タスク名検索" %>
+  <%= f.search_field :name_cont %>
+  <%= f.label :situation_cont, "ステータス" %>
+  <%= f.select :situation_cont, @situations, include_blank: true %>
+  <%= f.label :priority_eq, "優先順位" %>
+  <%= f.select :priority_eq, @priorities, include_blank: true %>
+  <div class="actions">
+    <%= f.submit "検索する", class:"btn btn-success mb-3" %>
   </div>
 <% end %>
 
@@ -73,7 +70,7 @@
   <% end %>
 </table>
 
-<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
+<%= link_to "タスクの作成日時順を表示", tasks_path, class:"btn btn-secondary mr-2" %>
 <%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
 <%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
 
