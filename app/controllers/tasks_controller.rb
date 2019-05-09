@@ -4,8 +4,6 @@ class TasksController < ApplicationController
   def index
     @situations = ["未着手", "着手中", "完了"]
     @priorities = {低: 0, 中: 1, 高: 2}
-    @labels = Label.all
-    
     @search = current_user.tasks.ransack(params[:q])
     @tasks = @search.result.recent.page(params[:page]).per(10)
 
