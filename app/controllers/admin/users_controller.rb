@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = "ユーザー「#{@user.user}」を更新しました"
       redirect_to admin_users_path
     elsif @user.admin == false && User.where(admin:true).count == 1 && @user == User.find_by(admin: true)
-      flash[:notice] = "管理者が1人であるため削除に失敗しました"
+      flash[:notice] = "管理者が1人であるため管理者権限を外すことに失敗しました"
       render 'edit'
     else
       flash[:notice] = "ユーザー「#{@user.user}」の更新に失敗しました"

@@ -1,4 +1,5 @@
 <%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <%= render 'layouts/messages' %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h3><%= @user.errors.count %>件のエラーがあります。</h3>
@@ -9,9 +10,7 @@
       </ul>
     </div>
   <% end %>
-
-  <%= render 'layouts/messages' %>
-
+  
   <div class ="form-group">
     <%= f.label :user %>
     <%= f.text_field :user, class: "form-control", placeholder: "ユーザー名の入力箇所です" %>
