@@ -1,10 +1,10 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :login_required, only: %i[new create]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, only: [:show, :edit, :update, :index]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :require_admin, only: %i[show edit update index]
 
   def index
-    @users = User.all.includes(:tasks).recent
+    @users = User.recent.page(params[:page]).includes(:tasks)
   end
 
   def show
@@ -35,10 +35,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "ユーザー「#{@user.user}」を更新しました"
       redirect_to admin_users_path
+    elsif @user.admin == false && User.where(admin:true).count == 1 && @user == User.find_by(admin: true)
+      flash[:notice] = "管理者が1人であるため管理者権限を外すことに失敗しました"
+      render 'edit'
     else
       flash[:notice] = "ユーザー「#{@user.user}」の更新に失敗しました"
       render 'edit'

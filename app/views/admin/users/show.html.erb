@@ -45,8 +45,8 @@
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
       <th><%= t('view.priority') %></th>
+      <th class="text-center"><%= t('view.label') %></th>
       <th class="text-center">詳細</th>
-      <th class="text-center">編集</th>
       <th class="text-center">削除</th>
     </tr>
    </thead>
@@ -55,21 +55,23 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= task.detail %></td>
-        <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
+        <td><%= task.created_at.strftime('%Y年%m月%d日') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
         <td class="text-center"><%= task.situation %></td>
         <td class="text-center"><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |l| %>
+          <ul>
+            <%= l.title %>
+          </ul>
+            <% end %>
+        </td>
         <td><%= link_to "詳細", task_path(task.id), class:"btn btn-info" %></td>
-        <td><%= link_to "編集", edit_task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger" %></td>
       </tr>
     </tbody>
   <% end %>
 </table>
-
-<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
-<%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
-<%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
 
 <div class="paginate_2 mt-2">
   <%= paginate @tasks %>

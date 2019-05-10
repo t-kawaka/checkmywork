@@ -2,18 +2,19 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    @situations = ["未着手", "着手中", "完了"]
+    @priorities = {低: 0, 中: 1, 高: 2}
+    @search = current_user.tasks.ransack(params[:q])
+    @tasks = @search.result.recent.page(params[:page]).per(10)
+
     if params[:deadline]
       @tasks = current_user.tasks.expired.page(params[:page])
-    elsif params[:priority]
+    end
+    if params[:priority]
       @tasks = current_user.tasks.priority.page(params[:page])
-    elsif params[:name] && params[:situation] == ""
-      @tasks = current_user.tasks.search_name(params[:name]).page(params[:page])
-    elsif params[:name] == nil && params[:situation]
-      @tasks = current_user.tasks.search_situation(params[:situation]).page(params[:page])
-    elsif params[:name] && params[:situation]
-      @tasks = current_user.tasks.search_name(params[:name]).search_situation(params[:situation]).page(params[:page])
-    else
-      @tasks = current_user.tasks.recent.page(params[:page])
+    end
+    if params[:label_ids]
+      @tasks = current_user.tasks.page(params[:page]).where(id: TaskLabel.where(label_id: params[:label_ids]).pluck(:task_id))
     end
   end
 
@@ -55,10 +56,10 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :situation, :priority)
+    params.require(:task).permit(:name, :detail, :deadline, :situation, :priority, label_ids: []).merge(user_id: current_user.id)
   end
 
   def set_task
-    @task = current_user.tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 end

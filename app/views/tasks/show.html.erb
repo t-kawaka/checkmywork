@@ -7,9 +7,16 @@
     <p class="card-text"><%= t('view.deadline') %>：<%= @task.deadline.strftime('%Y年%m月%d日') %></p>
     <p class="card-text"><%= t('view.situation') %>：<%= @task.situation %></p>
     <p class="card-text"><%= t('view.priority') %>：<%= @task.priority %></p>
+
+    <p class="card-text"><%= t('view.label') %>：
+      <% @task.labels.each do |label| %>
+        <li class="mr-1 mb-1"><%= label.title %></li>
+      <% end %>
+    </p>
+  </div>
   </div>
 </div>
 
 <div class="col-6 offset-3">
-  <%= link_to "ブログ一覧画面に戻る", tasks_path, class:"btn btn-light mt-2 mb-3" %>
+  <%= link_to "ブログ一覧画面に戻る", tasks_path, class:"btn btn-light mt-2 mb-5" %>
 </div>

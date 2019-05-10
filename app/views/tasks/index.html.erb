@@ -2,23 +2,29 @@
 
 <%= render 'layouts/messages' %>
 
-<%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
-  <div class="field">
-    <%= form.label :タスク名 %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ステータス %>
-    <%= form.select :situation, Task.situations.keys, include_blank: true, selected: "" %>
-  </div>
-
-  <div class="field">
-    <%= form.submit "検索する", class:"btn btn-success" %>
+<%= search_form_for @search do |f| %>
+  <%= f.label :name_cont,  "タスク名検索" %>
+  <%= f.search_field :name_cont %>
+  <%= f.label :situation_cont, "ステータス" %>
+  <%= f.select :situation_cont, @situations, include_blank: true %>
+  <%= f.label :priority_eq, "優先順位" %>
+  <%= f.select :priority_eq, @priorities, include_blank: true %>
+  <div class="actions">
+    <%= f.submit "検索する", class:"btn btn-success mb-3" %>
   </div>
 <% end %>
-<%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 
+<%= form_with(local: true, method: :get, url: tasks_path) do |form| %>
+  <div class="field">
+    <%= form.label :ラベル %>
+    <%= form.select :label_ids, Label.all.collect { |p| [ p.title, p.id ] }, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= form.submit "ラベルを検索する", class:"btn btn-success" %>
+  </div>
+<% end %>
+
+<%= link_to "元に戻す", tasks_path, class:"btn btn-light mt-3 mb-3" %><br>
 <%= link_to "タスクを作成する", new_task_path, class:"btn btn-primary mb-3" %><br>
 
 <div class="paginate_1">
@@ -34,6 +40,7 @@
       <th><%= t('view.deadline') %></th>
       <th><%= t('view.situation') %></th>
       <th><%= t('view.priority') %></th>
+      <th class="text-center"><%= t('view.label') %></th>
       <th class="text-center">詳細</th>
       <th class="text-center">編集</th>
       <th class="text-center">削除</th>
@@ -44,10 +51,17 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= task.detail %></td>
-        <td><%= task.created_at.strftime('%Y年%m月%d日 %H時%M分%S秒') %></td>
+        <td><%= task.created_at.strftime('%Y年%m月%d日') %></td>
         <td><%= task.deadline.strftime('%Y年%m月%d日') %></td>
         <td class="text-center"><%= task.situation %></td>
         <td class="text-center"><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |l| %>
+          <ul>
+            <%= l.title %>
+          </ul>
+            <% end %>
+        </td>
         <td><%= link_to "詳細", task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to "編集", edit_task_path(task.id), class:"btn btn-info" %></td>
         <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger" %></td>
@@ -56,7 +70,7 @@
   <% end %>
 </table>
 
-<%= link_to "タスクの作成日時順を表示", tasks_path,class:"btn btn-secondary mr-2" %>
+<%= link_to "タスクの作成日時順を表示", tasks_path, class:"btn btn-secondary mr-2" %>
 <%= link_to "終了期限でソートする", tasks_path(deadline: 'true'),class:"btn btn-secondary mr-2" %>
 <%= link_to "優先順位を高い順にソートする", tasks_path(priority: 'true'),class:"btn btn-secondary mr-2" %>
 
