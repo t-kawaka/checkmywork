@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_161148) do
     t.text "detail", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deadline", default: -> { "now()" }, null: false
+    t.datetime "deadline", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "situation", default: "未着手", null: false
     t.integer "priority", default: 0, null: false
     t.bigint "user_id", null: false
